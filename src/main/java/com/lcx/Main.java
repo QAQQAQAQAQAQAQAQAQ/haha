@@ -24,8 +24,8 @@ public class Main {
         UserInfo userInfo=new UserInfo();
         userInfo.setDcName("HTDL01");//数据中心ID可在管理控制台中查看，为数据中心代码
         userInfo.setLanguage("ch");//多语言，L1，L2，L3
-        userInfo.setUserName("89970782");//用户名
-        userInfo.setPassword("123456789");//用户密码
+        userInfo.setUserName("******");//用户名
+        userInfo.setPassword("******");//用户密码
         userInfo.setSlnName("eas");//固定值eas
         userInfo.setDbType(0);//数据库类型，0-SQL Server, 1-Oracle, 2-DB2
 

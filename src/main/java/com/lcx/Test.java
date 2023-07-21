@@ -17,6 +17,7 @@ import com.getui.push.v2.sdk.dto.req.message.android.Ups;
 import com.getui.push.v2.sdk.dto.req.message.ios.Alert;
 import com.getui.push.v2.sdk.dto.req.message.ios.Aps;
 import com.getui.push.v2.sdk.dto.req.message.ios.IosDTO;
+import com.getui.push.v2.sdk.dto.res.TaskIdDTO;
 
 import java.util.Map;
 
@@ -33,16 +34,18 @@ public class Test {
         // 创建对象，建议复用。目前有PushApi、StatisticApi、UserApi
         PushApi pushApi = apiHelper.creatApi(PushApi.class);
 
-        PushDTO<Audience> pushDTO = setPushDTO("9e19f41cd45899c422fb26d15aa5225e");
-        PushDTO<Audience> pushDTO1 = setPushDTO("f78d7b1d6fc92f39219a134ab50c2937");
+//        PushDTO<Audience> pushDTO = setPushDTO("9e19f41cd45899c422fb26d15aa5225e");
+//        PushDTO<Audience> pushDTO1 = setPushDTO("f78d7b1d6fc92f39219a134ab50c2937");
 
 //        // 进行cid单推
 //        ApiResult<Map<String, Map<String, String>>> apiResult = pushApi.pushToSingleByCid(pushDTO);
-        //批量推送
-        PushBatchDTO pushBatchDTO = new PushBatchDTO();
-        pushBatchDTO.addPushDTO(pushDTO);
-        pushBatchDTO.addPushDTO(pushDTO1);
-        ApiResult<Map<String, Map<String, String>>> apiResult = pushApi.pushBatchByCid(pushBatchDTO);
+//        //批量推送
+//        PushBatchDTO pushBatchDTO = new PushBatchDTO();
+//        pushBatchDTO.addPushDTO(pushDTO);
+//        pushBatchDTO.addPushDTO(pushDTO1);
+//        ApiResult<Map<String, Map<String, String>>> apiResult = pushApi.pushBatchByCid(pushBatchDTO);
+        PushDTO<String> pushDTO = pushAll();
+        ApiResult<TaskIdDTO> apiResult = pushApi.pushAll(pushDTO);
         if (apiResult.isSuccess()) {
             // success
             System.out.println(apiResult);
@@ -53,6 +56,23 @@ public class Test {
 
     }
 
+    private static PushDTO<String> pushAll(){
+        PushDTO<String> pushDTO = new PushDTO<>();
+        // 设置推送参数，requestid需要每次变化唯一
+        pushDTO.setRequestId(System.currentTimeMillis() + "");
+        Settings settings = new Settings();
+        pushDTO.setSettings(settings);
+        //消息有效期，走厂商消息必须设置该值
+        settings.setTtl(3600000);
+        //在线走个推通道时推送的消息体
+        PushMessage pushMessage = new PushMessage();
+        pushDTO.setPushMessage(pushMessage);
+        //此格式的透传消息由 unipush 做了特殊处理，会自动展示通知栏。开发者也可自定义其它格式，在客户端自己处理。
+        pushMessage.setTransmission("{\"title\":\"订单提醒\",\"content\":\"您的外卖订单已接单，请耐心等候\"," +
+                "\"payload\":\"您的外卖订单已接单，请耐心等候\"}");
+        pushDTO.setPushChannel(setMsg());
+        return pushDTO;
+    }
 
     private static PushDTO<Audience> setPushDTO(String cid) {
         //根据cid进行单推
@@ -63,7 +83,6 @@ public class Test {
         pushDTO.setSettings(settings);
         //消息有效期，走厂商消息必须设置该值
         settings.setTtl(3600000);
-
         //在线走个推通道时推送的消息体
         PushMessage pushMessage = new PushMessage();
         pushDTO.setPushMessage(pushMessage);
@@ -74,7 +93,11 @@ public class Test {
         Audience audience = new Audience();
         pushDTO.setAudience(audience);
         audience.addCid(cid);
+        pushDTO.setPushChannel(setMsg());
+        return pushDTO;
+    }
 
+    private static PushChannel setMsg(){
         //设置离线推送时的消息体
         PushChannel pushChannel = new PushChannel();
         //安卓离线厂商通道推送的消息体
@@ -104,8 +127,6 @@ public class Test {
         iosDTO.setAps(aps);
         iosDTO.setType("notify");
         pushChannel.setIos(iosDTO);
-
-        pushDTO.setPushChannel(pushChannel);
-        return pushDTO;
+        return pushChannel;
     }
 }

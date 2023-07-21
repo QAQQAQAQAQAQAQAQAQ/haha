@@ -34,6 +34,7 @@ public class Test {
         // 创建对象，建议复用。目前有PushApi、StatisticApi、UserApi
         PushApi pushApi = apiHelper.creatApi(PushApi.class);
 
+
 //        PushDTO<Audience> pushDTO = setPushDTO("9e19f41cd45899c422fb26d15aa5225e");
 //        PushDTO<Audience> pushDTO1 = setPushDTO("f78d7b1d6fc92f39219a134ab50c2937");
 

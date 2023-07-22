@@ -6,8 +6,6 @@ import com.getui.push.v2.sdk.api.PushApi;
 import com.getui.push.v2.sdk.common.ApiResult;
 import com.getui.push.v2.sdk.dto.req.Audience;
 import com.getui.push.v2.sdk.dto.req.Settings;
-import com.getui.push.v2.sdk.dto.req.UserDTO;
-import com.getui.push.v2.sdk.dto.req.message.PushBatchDTO;
 import com.getui.push.v2.sdk.dto.req.message.PushChannel;
 import com.getui.push.v2.sdk.dto.req.message.PushDTO;
 import com.getui.push.v2.sdk.dto.req.message.PushMessage;
@@ -18,8 +16,6 @@ import com.getui.push.v2.sdk.dto.req.message.ios.Alert;
 import com.getui.push.v2.sdk.dto.req.message.ios.Aps;
 import com.getui.push.v2.sdk.dto.req.message.ios.IosDTO;
 import com.getui.push.v2.sdk.dto.res.TaskIdDTO;
-
-import java.util.Map;
 
 public class Test {
     public static void main(String[] args) {
@@ -57,7 +53,7 @@ public class Test {
 
     }
 
-    private static PushDTO<String> pushAll(){
+    private static PushDTO<String> pushAll() {
         PushDTO<String> pushDTO = new PushDTO<>();
         // 设置推送参数，requestid需要每次变化唯一
         pushDTO.setRequestId(System.currentTimeMillis() + "");
@@ -98,7 +94,7 @@ public class Test {
         return pushDTO;
     }
 
-    private static PushChannel setMsg(){
+    private static PushChannel setMsg() {
         //设置离线推送时的消息体
         PushChannel pushChannel = new PushChannel();
         //安卓离线厂商通道推送的消息体

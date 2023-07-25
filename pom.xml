@@ -90,8 +90,9 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>6.0.11</version>
+            <version>5.3.19</version>
         </dependency>
+
 
 
     </dependencies>

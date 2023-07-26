@@ -53,6 +53,10 @@ public class Test {
 
     }
 
+    /**
+     * 群推
+     * @return
+     */
     private static PushDTO<String> pushAll() {
         PushDTO<String> pushDTO = new PushDTO<>();
         // 设置推送参数，requestid需要每次变化唯一
@@ -65,12 +69,17 @@ public class Test {
         PushMessage pushMessage = new PushMessage();
         pushDTO.setPushMessage(pushMessage);
         //此格式的透传消息由 unipush 做了特殊处理，会自动展示通知栏。开发者也可自定义其它格式，在客户端自己处理。
-        pushMessage.setTransmission("{\"title\":\"订单提醒\",\"content\":\"您的外卖订单已接单，请耐心等候\"," +
-                "\"payload\":\"您的外卖订单已接单，请耐心等候\"}");
+        pushMessage.setTransmission("{\"title\":\"订单提醒\",\"content\":\"您的外卖订单已接单，请耐心等候QAQ1\"," +
+                "\"payload\":\"/pages/vehicle/vehapply/vehapply-index\"}");
         pushDTO.setPushChannel(setMsg());
         return pushDTO;
     }
 
+    /**
+     * 指定推送
+     * @param cid
+     * @return
+     */
     private static PushDTO<Audience> setPushDTO(String cid) {
         //根据cid进行单推
         PushDTO<Audience> pushDTO = new PushDTO<>();
@@ -84,8 +93,8 @@ public class Test {
         PushMessage pushMessage = new PushMessage();
         pushDTO.setPushMessage(pushMessage);
         //此格式的透传消息由 unipush 做了特殊处理，会自动展示通知栏。开发者也可自定义其它格式，在客户端自己处理。
-        pushMessage.setTransmission("{\"title\":\"订单提醒\",\"content\":\"您的外卖订单已接单，请耐心等候\"," +
-                "\"payload\":\"您的外卖订单已接单，请耐心等候\"}");
+        pushMessage.setTransmission("{\"title\":\"订单提醒\",\"content\":\"您的外卖订单已接单，请耐心等候QAQ1\"," +
+                "\"payload\":\"/pages/vehicle/vehapply/vehapply-index\"}");
         // 设置接收人信息
         Audience audience = new Audience();
         pushDTO.setAudience(audience);
@@ -94,6 +103,10 @@ public class Test {
         return pushDTO;
     }
 
+    /**
+     * 离线消息
+     * @return
+     */
     private static PushChannel setMsg() {
         //设置离线推送时的消息体
         PushChannel pushChannel = new PushChannel();
@@ -103,19 +116,19 @@ public class Test {
         ThirdNotification thirdNotification = new ThirdNotification();
         ups.setNotification(thirdNotification);
         thirdNotification.setTitle("订单提醒");
-        thirdNotification.setBody("您的外卖订单已接单，请耐心等候");
+        thirdNotification.setBody("您的外卖订单已接单，请耐心等候QAQ1");
         thirdNotification.setClickType("intent");
         //注意：intent参数必须按下方文档（特殊参数说明）要求的固定格式传值，intent错误会导致客户端无法收到消息
         thirdNotification.setIntent("intent://io.dcloud.unipush/?#Intent;scheme=unipush;launchFlags=0x4000000;" +
                 "component=com.sxspv/io.dcloud.PandoraEntry;S.UP-OL-SU=true;S.title=订单提醒;" +
-                "S.content=您的外卖订单已接单，请耐心等候;S.payload=test;end");
+                "S.content=您的外卖订单已接单，请耐心等候QAQ1;S.payload=/pages/vehicle/vehapply/vehapply-index;end");
         androidDTO.setUps(ups);
         pushChannel.setAndroid(androidDTO);
 
         //ios离线apn通道推送的消息体
         Alert alert = new Alert();
         alert.setTitle("订单提醒");
-        alert.setBody("您的外卖订单已接单，请耐心等候");
+        alert.setBody("您的外卖订单已接单，请耐心等候QAQ1");
         Aps aps = new Aps();
         aps.setContentAvailable(0);
         aps.setSound("default");

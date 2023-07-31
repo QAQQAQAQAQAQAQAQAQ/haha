@@ -112,6 +112,7 @@ public class Base64Util {
         int len;
         while ((len = bis.read(bytes)) != -1) {
             baos.write(bytes, 0, len);
+
         }
         //转成字符串base64
         Base64.Encoder encoder = Base64.getEncoder();
